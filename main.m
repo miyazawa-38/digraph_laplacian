@@ -1,10 +1,13 @@
-## adjency matrix
+## 隣接行列
 A = [0,3; 1,0]
 
 ## エルミート隣接行列を算出する
-H = getHermitianLaplacian(A)
+H = getHermitianAdjencyMatrix(A)
 
-## 次数行列を算出する
-D = getDegreeMatrix(A)
+## エルミート隣接行列に対しての次数行列を算出する
+D = getDegreeMatrixForHermitian(H)
+
+## エルミートグラフラプラシアン
+L = D - A
 
 
