@@ -1,7 +1,8 @@
 %% emailに対する隣接行列を算出する関数
 
 function A = getAdjencyMatrixForEmail()
-  data = dlmread("email-Eu-core-temporal.txt");
+  % data = dlmread("email-Eu-core-temporal.txt");
+  data = dlmread("email-Eu-core-temporal-Dept1.txt");
 
   % 開始頂点source, 終端頂点target
   source = data(:, 1) + 1;  % 0から始まるノードを1からにする
