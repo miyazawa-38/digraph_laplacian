@@ -1,21 +1,19 @@
 %% main関数
 
-% % 隣接行列
-% A = [0,3;
-%      1,0];
+addpath('datasets/email');  % emailの隣接行列
+A = getAdjencyMatrixForEmail();
 
-% 隣接行列
-s_1 = 0.0742;
-s_2 = 0;
-num_nodes = 10;
-[A,f,x] = randomPlot(s_1, s_2, num_nodes);
+% addpath('datasets/kamata')  % 鎌田さんのランダムプロットを使用
+% [A,f,x] = randomPlot();
 
 % グラフ作用素を算出する関数
 [H, D, L, L_] = getGraphOperator(A);
+disp(any(diag(D) == 0));
 [U,Lambda] = eig(L_);
 
-disp(A);
-disp(H);
-disp(D);
-disp(U);
-disp(Lambda);
+% disp(ismatrix(A));
+disp(full(A(1:10, 1:10)));
+% disp(H);
+% disp(D);
+% disp(U);
+% disp(Lambda);
