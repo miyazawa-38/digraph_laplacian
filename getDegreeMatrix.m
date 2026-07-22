@@ -1,6 +1,6 @@
 %% エルミート隣接行列に対しての次数行列を算出する関数
 
-function D = getDegreeMatrixForHermitian(H)
+function D = getDegreeMatrix(H)
 
   % H: エルミート隣接行列
   % D: 次数行列
