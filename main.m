@@ -9,8 +9,11 @@ x = generateGraphSignal(A);
 % addpath('datasets/kamata') 
 % [A,f,x] = randomPlot();
 
-% グラフ作用素を算出
-[H, D, L, L_, U, lambda] = getGraphOperator(A);
+% グラフ作用素
+[H, D, L, L_tilde, U, lambda] = getGraphOperator(A);
+
+% % 村松先生のグラフ作用素
+% [H_k, D_k, L_k, L_tilde_k, U_k, lambda_k] = getGraphOperatorOfMuramatsu(A);
 
 % GFT
 x_hat = GFT(U, x);
