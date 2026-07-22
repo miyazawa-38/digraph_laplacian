@@ -1,11 +1,13 @@
 %% グラフ作用素を算出する関数
 
-function [H, D, L, L_] = getGraphOperator(A)
+function [H, D, L, L_, U, Lambda] = getGraphOperator(A)
 
   % A: 隣接行列
   % H: エルミート隣接行列
   % L: エルミートグラフラプラシアン
   % L_: 正規化エルミートグラフラプラシアン
+  % U: 固有ベクトル行列
+  % Lambda: 固有値を対角に並べた行列
 
   % エルミート隣接行列を算出する
   H = getHermitianAdjencyMatrix(A);
@@ -18,4 +20,9 @@ function [H, D, L, L_] = getGraphOperator(A)
   
   % 正規化エルミートグラフラプラシアン
   L_ = D^(-1/2) * L * D^(-1/2);
+
+  [U,Lambda] = eig(L_);
+  [lambda, idx] = sort(diag(Lambda), 'ascend');
+  U = U(:,idx);
+  Lambda = diag(lambda);
 end

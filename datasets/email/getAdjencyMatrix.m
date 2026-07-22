@@ -1,6 +1,6 @@
 %% emailに対する隣接行列を算出する関数
 
-function A = getAdjencyMatrixForEmail()
+function A = getAdjencyMatrix()
   % data = dlmread("email-Eu-core-temporal.txt");
   data = dlmread("email-Eu-core-temporal-Dept1.txt");
 

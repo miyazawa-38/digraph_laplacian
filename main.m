@@ -1,19 +1,23 @@
 %% main関数
 
-addpath('datasets/email');  % emailの隣接行列
-A = getAdjencyMatrixForEmail();
+% ヨーロッパのemailのネットワーク
+addpath('datasets/email');  
+A = getAdjencyMatrix();
+x = generateGraphSignal(A);
 
-% addpath('datasets/kamata')  % 鎌田さんのランダムプロットを使用
+% % 鎌田さんのランダムプロット
+% addpath('datasets/kamata') 
 % [A,f,x] = randomPlot();
 
-% グラフ作用素を算出する関数
-[H, D, L, L_] = getGraphOperator(A);
-disp(any(diag(D) == 0));
-[U,Lambda] = eig(L_);
+% グラフ作用素を算出
+[H, D, L, L_, U, Lambda] = getGraphOperator(A);
 
 % disp(ismatrix(A));
-disp(full(A(1:10, 1:10)));
-% disp(H);
-% disp(D);
-% disp(U);
-% disp(Lambda);
+% disp(full(A(1:10, 1:10)));
+% disp(x(1:10));
+% disp(full(H(1:10, 1:10)));
+
+
+% GFT
+x_hat = GFT(U, x);
+disp(diag(Lambda)(1:10));
