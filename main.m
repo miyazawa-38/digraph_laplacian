@@ -2,7 +2,7 @@
 
 % ヨーロッパのemailのネットワーク
 addpath('datasets/email');  
-A = getAdjencyMatrix();
+A = getAdjacencyMatrix('email-Eu-core-temporal-Dept1.txt');
 x = generateGraphSignal(A);
 
 % % 鎌田さんのランダムプロット
@@ -25,7 +25,8 @@ y_hat = filterHeatKernel(x_hat, lambda, 5);
 
 % IGFT
 y = IGFT(U, y_hat);
-disp(y(1:10));
+% disp(y(1:10));
 
 % 信号を描画
-% plotSignal(x, y);
+plotGraphSignal(x_hat, y_hat);
+plotGraphSignal2(x_hat, y_hat);
