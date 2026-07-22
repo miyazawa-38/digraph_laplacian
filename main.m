@@ -22,4 +22,6 @@ y_hat = filterHeatKernel(x_hat, lambda, 5);
 
 % IGFT
 y = IGFT(U, y_hat);
-disp(y_hat(1:10));
+
+% 信号を描画
+plotSignal(x, y);
