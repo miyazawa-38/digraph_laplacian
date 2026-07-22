@@ -12,18 +12,14 @@ x = generateGraphSignal(A);
 % グラフ作用素を算出
 [H, D, L, L_, U, lambda] = getGraphOperator(A);
 
-% disp(ismatrix(A));
-% disp(full(A(1:10, 1:10)));
-% disp(x(1:10));
-% disp(full(H(1:10, 1:10)));
-
-
 % GFT
 x_hat = GFT(U, x);
 
 % フィルタリング
 y_hat = filterHeatKernel(x_hat, lambda, 5);
+% y_hat = filterIdealLowpass(x_hat, lambda, 1);
+% y_hat = filterIdealLowpass(x_hat, lambda, 2);
 
 % IGFT
 y = IGFT(U, y_hat);
-disp(y(1:10));
+disp(y_hat(1:10));

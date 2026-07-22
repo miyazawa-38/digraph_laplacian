@@ -23,6 +23,7 @@ function [H, D, L, L_, U, lambda] = getGraphOperator(A)
 
   % 固有ベクトル行列、固有値を対角に並べた行列
   [U,Lambda] = eig(L_);
+  Lambda = real(Lambda);
   [lambda, idx] = sort(diag(Lambda), 'ascend');
   U = U(:,idx);
   Lambda = diag(lambda);
