@@ -30,3 +30,9 @@ y = IGFT(U, y_hat);
 % 信号を描画
 plotGraphSignal(x_hat, y_hat);
 plotGraphSignal2(x_hat, y_hat);
+
+
+
+
+
+

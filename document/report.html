@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レポート</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+
+  <h1>AIに読み込ませるための文書</h1>
+  <div class="meta">
+  </div>
+
+  <h2>1. 本文書の目的</h2>
+  <p>
+    鎌田さんの修士論文の必要な部分を要約してAIに読み込ませるための文書。
+    今後の拡張性も考えて数式をtex形式で書いておく目的、自分の理解を書き留めておく目的もある。
+  </p>
+
+  <h2>2. 鎌田さんのエルミートグラフラプラシアン</h2>
+  <p>
+    グラフは有向グラフとして考える。
+  </p>
+
+  <h3>2.1 エルミート隣接行列の構成</h3>
+  <p>
+    有向グラフの隣接行列を$A$とする。このときエルミート隣接行列を以下のように定義する。
+    $$
+    H = \frac{A + A^\top}{2} + i\frac{A - A^\top}{2}
+    $$
+    この行列はエルミートとなる。そのため、後々出てくるグラフラプラシアンの固有値が実数、固有ベクトル行列はユニタリ行列となる。
+  </p>
+
+  <h3>2.2 次数行列の構成</h3>
+  <p>
+    ここでは鎌田さんが提案した次数行列を紹介する。エルミート隣接行列$H$に対し、次数行列を以下のように実部の絶対値と虚部の絶対値の和によって定義する。
+    $$
+    D : d_{ij} =
+    \begin{cases}
+    \displaystyle
+    \sum_{k=1}^{N} \left( \left|\operatorname{Re}(h_{ik})\right| + \left|\operatorname{Im}(h_{ik})\right| \right)
+    & \text{if } i=j, \\[6pt]
+    0
+    & \text{otherwise}.
+    \end{cases}
+    $$
+  </p>
+
+  <h3>2.3 エルミートグラフラプラシアンの構成</h3>
+  <p>
+    エルミートグラフラプラシアンは無向グラフと同様に以下のように定義する。
+    $$
+    L = D - H
+    $$
+  </p>
+
+  <h2>3. エルミートグラフラプラシアンの解釈</h2>
+  <p>
+    よく知られた事実として、複素数スカラーを実$2\times2$行列に変換可能であるという数学的な性質がある。
+    $$
+    a+bi \leftrightarrow
+    \begin{pmatrix}
+    a & b \\
+    -b & a \\
+    \end{pmatrix}
+    $$
+    変換前の複素数と変換後の実行列において、両者の和・積・逆の演算結果は完全に一致することが知られている。
+    この性質をエルミート化した隣接行列に適用することで、行列サイズが$2\times2$倍になった実対称行列$R$が得られる。
+    これにより、隣接行列が実対象となるため、無向グラフと同様に処理することが可能となる。
+    すなわち、本来の無向グラフに対する定義
+    $$
+    D \in \mathbb{R}^{2N\times2N}: d_{ij} =
+    \begin{cases}
+    \displaystyle
+    \sum_{k=1}^{N} \left|r_{ik}\right|
+    & \text{if } i=j, \\[6pt]
+    0
+    & \text{otherwise}.
+    \end{cases}
+    $$
+    により次数行列を求めることで、対称なグラフラプラシアンが得られる。
+    ただし、ここでは性質上、有向辺が含まれる場合に必ず負の辺が現れてしまうため、要素の絶対値により字数を定義している点に注意する必要がある。
+    例として以下を挙げる。
+    $$
+    \begin{aligned}
+    A =
+    \begin{pmatrix}
+    0 & 3 \\
+    1 & 0
+    \end{pmatrix}
+
+    &\rightarrow
+    H =
+    \begin{pmatrix}
+    0 & 2+i \\
+    2-i & 0
+    \end{pmatrix}
+
+    \\[6pt]
+
+    &\rightarrow
+    H_R =
+    \begin{pmatrix}
+    0 & 0 & 2 & 1 \\
+    0 & 0 & -1 & 2 \\
+    2 & -1 & 0 & 0 \\
+    1 & 2 & 0 & 0
+    \end{pmatrix}, \quad
+    D_R =
+    \begin{pmatrix}
+    3 & 0 & 0 & 0 \\
+    0 & 3 & 0 & 0 \\
+    0 & 0 & 3 & 0 \\
+    0 & 0 & 0 & 3
+    \end{pmatrix}
+
+    \\[6pt]
+
+    &\rightarrow
+    L_R =
+    \begin{pmatrix}
+    3 & 0 & -2 & -1 \\
+    0 & 3 & 1 & -2 \\
+    -2 & 1 & 3 & 0 \\
+    -1 & -2 & 0 & 3
+    \end{pmatrix}
+
+    \\[6pt]
+
+    &\rightarrow
+    L =
+    \begin{pmatrix}
+    3 & -2-i \\
+    -2+i & 3 \\
+    \end{pmatrix}
+    \end{aligned}
+    $$
+    このことより、提案したエルミートグラフラプラシアンは、エルミート隣接行列に対し、複素数と行列の対応を利用した自然な拡張となっていることがいえる。
+    同時に、$L$は実部と虚部それぞれに対してもラプラシアン構造が成立していることがわかる。
+    $$
+    L = L_{real} + L_{imag} =
+    \begin{pmatrix}
+    2 & -2 \\
+    -2 & 2 \\
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+    1 & -i \\
+    i & 1 \\
+    \end{pmatrix}
+    $$
+    以上の解釈により提案手法は、有向グラフを、情報を失うこと無く無向グラフに変換することが可能な定義であるといえる。
+    課題としては、本来無向グラフに対する信号処理において負の辺は考慮されていないことが多く、自明ではないものとして研究している研究があるということである。
+    そのため、新たに解釈が必要となってしまう点、行列サイズが大きくなってしまうため、処理において計算量が膨大になってしまう可能性がある点が上げられる。
+  </p>
+</body>
+
+</html>
